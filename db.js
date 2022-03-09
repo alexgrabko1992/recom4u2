@@ -12,14 +12,11 @@ require("dotenv").config();
 //   }
 // );
 
-module.exports = new Sequelize(
-  "postgres://iudtywrqifxaqi:2cbdb1da637ca374d1f1ded6675acde5dbfd4d69cc1c834b5dd27efe6853ce9c@ec2-63-34-223-144.eu-west-1.compute.amazonaws.com:5432/d3gif98mkhecft",
-  {
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
+module.exports = new Sequelize(process.env.DB_URL, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
     },
-  }
-);
+  },
+});
