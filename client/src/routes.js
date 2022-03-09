@@ -3,18 +3,18 @@ import { Profile } from "./pages/Profile";
 
 export const publicRoutes = [
   {
-    path: "https://recom4u.herokuapp.com/",
+    path: "/",
     Component: <Home />,
   },
 ];
 
 export const privateRoutes = [
   {
-    path: "https://recom4u.herokuapp.com/",
+    path: "/",
     Component: <Home />,
   },
   {
-    path: "https://recom4u.herokuapp.com/profile",
+    path: "/profile",
     Component: <Profile />,
   },
 ];
