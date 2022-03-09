@@ -13,7 +13,7 @@ require("dotenv").config();
 // );
 
 module.exports = new Sequelize(
-  "postgres://izzzeyucrykzaw:6f4dd4d5866836ffcab6401f1ebb8a343ae91e337954e87ae9556956ab603644@ec2-52-31-217-108.eu-west-1.compute.amazonaws.com:5432/d8ecorievbp5q6",
+  "postgres://iudtywrqifxaqi:2cbdb1da637ca374d1f1ded6675acde5dbfd4d69cc1c834b5dd27efe6853ce9c@ec2-63-34-223-144.eu-west-1.compute.amazonaws.com:5432/d3gif98mkhecft",
   {
     dialectOptions: {
       ssl: {
