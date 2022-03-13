@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -9,9 +9,16 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import userService from "../controllers/userService";
 
 export const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      userService.createUser(user.email, "USER");
+    }
+  }, [isAuthenticated]);
   return (
     <Navbar bg="light" expand="lg" fixed="top">
       <Container fluid>

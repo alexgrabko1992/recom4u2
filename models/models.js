@@ -12,7 +12,7 @@ const Review = sequelize.define("review", {
   title: { type: DataTypes.STRING, allowNull: false },
   info: { type: DataTypes.STRING, allowNull: false },
   rating: { type: DataTypes.INTEGER, defaultValue: 0 },
-  img: { type: DataTypes.STRING, allowNull: false },
+  img: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
 });
 
 const Type = sequelize.define("type", {

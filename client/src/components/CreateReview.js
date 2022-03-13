@@ -1,64 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import Rating from "react-rating";
+import reviewService from "../controllers/reviewService";
+import typeService from "../controllers/typeService";
+import { Context } from "../index";
 
 export const CreateReview = () => {
   const [validated, setValidated] = useState(false);
-  const [image, setImage] = useState();
-  const [img, setImg] = useState();
+  const [types, setTypes] = useState([]);
+  const [base64, setBase64] = useState([]);
   const [title, setTitle] = useState();
+  const [typeId, setTypeId] = useState();
   const [info, setInfo] = useState();
   const [rating, setRating] = useState();
+  const { currentUser } = useContext(Context);
+
+  const handleChange = ({ target }) => {
+    setBase64([]);
+    if (target.files.length > 3) {
+      target.value = null;
+      alert("You can upload only 3 images");
+    }
+
+    for (let i = 0; i < target.files.length; i++) {
+      const reader = new FileReader();
+      reader.readAsDataURL(target.files[i]);
+      reader.onload = function () {
+        const blob = reader.result.split(",")[1];
+        setBase64((prevState) => [...prevState, blob]);
+      };
+    }
+  };
 
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
+    } else {
+      event.preventDefault();
+
+      let img = [];
+
+      base64.forEach(async (e) => {
+        const data = await reviewService.uploadToStorage(e);
+        img.push(data.display_url);
+      });
+
+      setTimeout(() => {
+        reviewService.createReview(
+          title,
+          info,
+          img,
+          rating,
+          currentUser.userId,
+          typeId
+        );
+        event.target.submit();
+      }, 2000);
+
+      setValidated(true);
     }
-    event.preventDefault();
-
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = async function () {
-      const base64 = reader.result.split(",")[1];
-      console.log(base64);
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/review/upload`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify({ data: base64 }),
-        }
-      );
-      const jsonResponse = await response.json();
-      console.log(jsonResponse.display_url);
-      setImg(jsonResponse.display_url);
-    };
-
-    setTimeout(async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/review/create-review`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          body: JSON.stringify({
-            title,
-            info,
-            img,
-            rating,
-          }),
-        }
-      );
-      const jsonResponse = await response.json();
-      console.log(jsonResponse);
-    }, 2000);
-
-    setValidated(true);
   };
+
+  useEffect(() => {
+    typeService.getTypes().then((response) => {
+      setTypes(response);
+    });
+  }, []);
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Form.Group controlId="title" className="mb-3">
@@ -68,11 +76,19 @@ export const CreateReview = () => {
           onChange={({ target }) => setTitle(target.value)}
         />
       </Form.Group>
-      <Form.Select aria-label="Default select example" className="mb-2">
+      <Form.Select
+        aria-label="Default select example"
+        className="mb-2"
+        onChange={({ target }) => setTypeId(target.value)}
+      >
         <option>Open this select menu</option>
-        <option value="1">Book</option>
-        <option value="2">Film</option>
-        <option value="3">Game</option>
+        {types.map((e) => {
+          return (
+            <option key={e.id} value={e.id}>
+              {e.name}
+            </option>
+          );
+        })}
       </Form.Select>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Example textarea</Form.Label>
@@ -83,12 +99,14 @@ export const CreateReview = () => {
           onChange={({ target }) => setInfo(target.value)}
         />
       </Form.Group>
-      <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label>Default file input example</Form.Label>
+      <Form.Group controlId="formFiles" className="mb-3">
+        <Form.Label>Default files input example</Form.Label>
         <Form.Control
           type="file"
           required
-          onChange={({ target }) => setImage(target.files[0])}
+          onChange={handleChange}
+          multiple
+          accept="image"
         />
       </Form.Group>
       <Rating

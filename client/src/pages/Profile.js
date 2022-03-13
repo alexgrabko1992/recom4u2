@@ -3,45 +3,19 @@ import { Col, Row, Image, Tab, Tabs } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CreateReview } from "../components/CreateReview";
 import { Review } from "../components/Review";
+import reviewController from "../controllers/reviewService";
 
 export const Profile = () => {
   const { user } = useAuth0();
   const [reviews, setReviews] = useState();
 
-  // const setUser = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "/api/user/create-user",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json;charset=utf-8",
-  //         },
-  //         body: JSON.stringify({ email: user.email, role: "USER" }),
-  //       }
-  //     );
-  //     const jsonResponse = await response.json();
-  //     console.log(jsonResponse);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const getReviews = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/review/get-review`
-      );
-      const jsonResponse = await response.json();
-      setReviews(jsonResponse);
-    } catch (error) {
-      console.log(error);
-    }
+    const info = await reviewController.getReviews();
+    info.length !== 0 ? setReviews(info) : setReviews();
   };
 
   useEffect(() => {
     getReviews();
-    // setUser();
   }, []);
 
   return (

@@ -12,8 +12,15 @@ class ReviewController {
       .catch((error) => console.error(error));
   }
   async createReview(req, res) {
-    const { title, info, rating, img } = req.body;
-    const review = await Review.create({ title, info, rating, img });
+    const { title, info, rating, img, userId, typeId } = req.body;
+    const review = await Review.create({
+      title,
+      info,
+      rating,
+      img,
+      userId,
+      typeId,
+    });
     res.json(review);
   }
   async getReview(req, res) {
