@@ -30,7 +30,7 @@ app.use(express.json({ limit: "50mb" }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
-app.use("https://recom4u.herokuapp.com/api", router);
+app.use("/api", router);
 
 const start = async () => {
   try {
