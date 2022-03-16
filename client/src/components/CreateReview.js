@@ -114,7 +114,9 @@ export const CreateReview = () => {
         fullSymbol="fa fa-star fa-2x"
         onClick={(value) => setRating(value)}
       />
-      <Button type="submit">Submit form</Button>
+      <Button type="submit" style={{ marginLeft: "10%" }}>
+        Submit form
+      </Button>
     </Form>
   );
 };

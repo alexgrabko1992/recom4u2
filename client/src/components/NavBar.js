@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Navbar,
   Container,
@@ -9,20 +9,19 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import userService from "../controllers/userService";
 
-export const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+export const NavBar = ({ theme, setTheme }) => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      userService.createUser(user.email, "USER");
-    }
-  }, [isAuthenticated]);
   return (
-    <Navbar bg="light" expand="lg" fixed="top">
+    <Navbar bg={theme === "light" ? "light" : "dark"} expand="lg" fixed="top">
       <Container fluid>
-        <Navbar.Brand href="#">Recom4u</Navbar.Brand>
+        <Navbar.Brand
+          href="#"
+          className={theme === "light" ? "" : "text-light"}
+        >
+          Recom4u
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -30,7 +29,11 @@ export const NavBar = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link as={Link} to="/">
+            <Nav.Link
+              as={Link}
+              to="/"
+              className={theme === "light" ? "" : "text-white"}
+            >
               Home
             </Nav.Link>
             {/* <Nav.Link as={Link} to="/login">
@@ -50,6 +53,7 @@ export const NavBar = () => {
               as={Link}
               to="/profile"
               disabled={isAuthenticated ? false : true}
+              className={theme === "light" ? "" : "text-light"}
             >
               Profile
             </Nav.Link>
@@ -65,14 +69,26 @@ export const NavBar = () => {
               Search
             </Button>
             {isAuthenticated ? (
-              <Button variant="danger" onClick={logout}>
+              <Button variant="danger" onClick={logout} className="me-2">
                 Logout
               </Button>
             ) : (
-              <Button variant="primary" onClick={loginWithRedirect}>
+              <Button
+                variant="primary"
+                onClick={loginWithRedirect}
+                className="me-2"
+              >
                 Login
               </Button>
             )}
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              className="align-self-center"
+              onChange={() =>
+                theme === "light" ? setTheme("dark") : setTheme("light")
+              }
+            />
           </Form>
         </Navbar.Collapse>
       </Container>

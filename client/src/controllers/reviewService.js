@@ -34,7 +34,27 @@ class reviewService {
     const jsonResponse = await response.json();
     console.log(jsonResponse);
   }
-  async getReviews() {
+  async getReviews(userId) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/review/my-reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            userId,
+          }),
+        }
+      );
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async getAllReviews() {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_SERVER_URL}/api/review/get-review`
