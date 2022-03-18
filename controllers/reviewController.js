@@ -32,6 +32,11 @@ class ReviewController {
     const reviews = await Review.findAll({ where: { userId } });
     res.json(reviews);
   }
+  async deleteReview(req, res) {
+    const { id } = req.body;
+    const response = await Review.destroy({ where: { id } });
+    res.json("Review was deleted");
+  }
 }
 
 module.exports = new ReviewController();

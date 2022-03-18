@@ -65,6 +65,26 @@ class reviewService {
       console.log(error);
     }
   }
+  async deleteReview(id) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/review/delete-review`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            id,
+          }),
+        }
+      );
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export default new reviewService();

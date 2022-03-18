@@ -5,19 +5,23 @@ import { CreateReview } from "../components/CreateReview";
 import { Review } from "../components/Review";
 import reviewController from "../controllers/reviewService";
 import { Context } from "../index";
+import { observer } from "mobx-react-lite";
+import { MdDeleteForever } from "react-icons/md";
 
-export const Profile = () => {
-  const { user } = useAuth0();
+export const Profile = observer(() => {
+  const { user, isAuthenticated } = useAuth0();
   const [reviews, setReviews] = useState();
   const { currentUser } = useContext(Context);
 
-  const getReviews = async () => {
-    const info = await reviewController.getReviews(currentUser.userId);
-    info.length !== 0 ? setReviews(info) : setReviews();
-  };
-
-  useEffect(() => {
-    getReviews();
+  useEffect(async () => {
+    // const info = await reviewController.getReviews(currentUser.userId);
+    // info.length !== 0 ? setReviews(info) : setReviews();
+    // console.log(info);
+    reviewController
+      .getReviews(currentUser.userId)
+      .then((response) =>
+        response !== [] ? setReviews(response) : setReviews()
+      );
   }, []);
 
   return (
@@ -40,14 +44,30 @@ export const Profile = () => {
       </Col>
       <Col lg={8} className="border overflow-scroll" style={{ height: "100%" }}>
         <Tabs
-          defaultActiveKey="create"
+          defaultActiveKey="reviews"
           id="uncontrolled-tab-example"
           className="mb-3"
         >
           <Tab eventKey="reviews" title="Reviews">
             <div className="d-flex flex-wrap justify-content-around">
               {reviews ? (
-                reviews.map((e) => <Review content={e} key={e.id} />)
+                reviews.map((e) => (
+                  <Review
+                    auth={isAuthenticated}
+                    content={e}
+                    key={e.id}
+                    icon={
+                      <MdDeleteForever
+                        style={{
+                          transform: "scale(2)",
+                          cursor: "pointer",
+                          marginLeft: 0,
+                          marginBottom: 0,
+                        }}
+                      />
+                    }
+                  />
+                ))
               ) : (
                 <p>You are havn't reviews yet</p>
               )}
@@ -63,4 +83,4 @@ export const Profile = () => {
       </Col>
     </Row>
   );
-};
+});

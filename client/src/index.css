@@ -13,11 +13,21 @@ body {
   border: var(--border);
 }
 
+.modal-content {
+  color: var(--color);
+  background-color: var(--background-color);
+}
+button .btn-close {
+  color: var(--color);
+}
+
 html[data-theme="dark"] {
   --background-color: #121416;
   --color: white;
   --border: 1px solid white;
 }
 
-/* html[data-theme="light"] {
-} */
+html[data-theme="light"] {
+  --border: 1px solid white;
+  --background-color: white;
+}

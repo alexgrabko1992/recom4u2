@@ -85,9 +85,10 @@ export const NavBar = ({ theme, setTheme }) => {
               type="switch"
               id="custom-switch"
               className="align-self-center"
-              onChange={() =>
-                theme === "light" ? setTheme("dark") : setTheme("light")
-              }
+              checked={theme === "dark" ? true : false}
+              onChange={() => {
+                theme === "light" ? setTheme("dark") : setTheme("light");
+              }}
             />
           </Form>
         </Navbar.Collapse>
