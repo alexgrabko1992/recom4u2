@@ -24,9 +24,13 @@ button .btn-close {
 .form-control,
 textarea,
 .form-select,
-#formFiles {
+#formFiles,
+.wmde-markdown {
   background-color: var(--input-background-color);
   color: var(--color);
+}
+.w-md-editor-text-input {
+  background-color: var(--input-background-color);
 }
 
 html[data-theme="dark"] {

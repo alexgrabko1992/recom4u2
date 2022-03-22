@@ -73,6 +73,7 @@ export const CreateReviewContainer = () => {
       setTitle={setTitle}
       setTypeId={setTypeId}
       setInfo={setInfo}
+      info={info}
       setRating={setRating}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

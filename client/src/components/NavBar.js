@@ -11,7 +11,6 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import RusIcon from "../icons/premium-icon-russia-5582348.png";
 
 export const NavBar = ({ theme, setTheme }) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -68,7 +67,7 @@ export const NavBar = ({ theme, setTheme }) => {
                 onClick={loginWithRedirect}
                 className="me-2"
               >
-                Login
+                login
               </Button>
             )}
             <NavDropdown

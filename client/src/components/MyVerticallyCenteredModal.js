@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Button, Image } from "react-bootstrap";
 import Rating from "react-rating";
+import MDEditor from "@uiw/react-md-editor";
 
 export const MyVerticallyCenteredModal = (props) => {
   return (
@@ -20,7 +21,10 @@ export const MyVerticallyCenteredModal = (props) => {
       </Modal.Header>
       <Modal.Body>
         <h4>{props.content.title}</h4>
-        <p>{props.content.info}</p>
+        <MDEditor.Markdown
+          style={{ color: "inherit", backgroundColor: "inherit" }}
+          source={props.content.info}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Rating

@@ -3,6 +3,7 @@ import { Modal, Button, Image, Form } from "react-bootstrap";
 import { Context } from "../index";
 import Rating from "react-rating";
 import reviewService from "../controllers/reviewService";
+import MDEditor from "@uiw/react-md-editor";
 
 export const ModalEdit = (props) => {
   const [validated, setValidated] = useState(false);
@@ -47,7 +48,7 @@ export const ModalEdit = (props) => {
                     {e.name}
                   </option>
                 ) : (
-                  <></>
+                  <p key={e.id}>undefined</p>
                 );
               })}
             </Form.Select>
@@ -67,13 +68,14 @@ export const ModalEdit = (props) => {
             onChange={({ target }) => setTitle(target.value)}
             value={title}
           />
-          <Form.Control
+          {/* <Form.Control
             as="textarea"
             rows={3}
             required
             onChange={({ target }) => setInfo(target.value)}
             value={info}
-          />
+          /> */}
+          <MDEditor value={info} onChange={setInfo} />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Rating

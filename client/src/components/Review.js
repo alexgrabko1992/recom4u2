@@ -8,6 +8,7 @@ import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import reviewService from "../controllers/reviewService";
 import typeService from "../controllers/typeService.js";
+import MDEditor from "@uiw/react-md-editor";
 
 export const Review = observer(({ content, icon, auth }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -20,7 +21,9 @@ export const Review = observer(({ content, icon, auth }) => {
     window.location.reload();
   };
   const handleClick = async () => {
-    typeService.getTypeById(content.typeId).then((r) => setType(r));
+    typeService
+      .getTypeById(content.typeId)
+      .then((r) => (r === null ? setType("Not set") : setType(r)));
     setModalShow(true);
   };
 
@@ -34,9 +37,17 @@ export const Review = observer(({ content, icon, auth }) => {
         disabled={auth ? false : true}
       >
         <Card.Img variant="top" src={content.img} />
-        <Card.Body className="d-flex flex-column justify-content-between">
+        <Card.Body
+          className="d-flex flex-column justify-content-between"
+          style={{ width: "100%" }}
+        >
           <Card.Title>{content.title}</Card.Title>
-          <Card.Text>{content.info}</Card.Text>
+          <Card.Text></Card.Text>
+          <MDEditor.Markdown
+            style={{ color: "inherit", backgroundColor: "inherit" }}
+            source={content.info}
+          />
+
           <Rating
             emptySymbol="fa fa-star-o fa-2x"
             fullSymbol="fa fa-star fa-2x"

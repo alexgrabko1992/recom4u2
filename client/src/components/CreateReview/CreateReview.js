@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import Rating from "react-rating";
+import MDEditor from "@uiw/react-md-editor";
 
 export const CreateReview = ({
   validated,
@@ -8,6 +9,7 @@ export const CreateReview = ({
   setTitle,
   setTypeId,
   setInfo,
+  info,
   setRating,
   handleChange,
   handleSubmit,
@@ -37,11 +39,16 @@ export const CreateReview = ({
       </Form.Select>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Example textarea</Form.Label>
-        <Form.Control
+        {/* <Form.Control
           as="textarea"
           rows={3}
           required
           onChange={({ target }) => setInfo(target.value)}
+        /> */}
+        <MDEditor
+          style={{ color: "inherit", backgroundColor: "inherit" }}
+          value={info}
+          onChange={setInfo}
         />
       </Form.Group>
       <Form.Group controlId="formFiles" className="mb-3">
