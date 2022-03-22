@@ -21,10 +21,19 @@ button .btn-close {
   color: var(--color);
 }
 
+.form-control,
+textarea,
+.form-select,
+#formFiles {
+  background-color: var(--input-background-color);
+  color: var(--color);
+}
+
 html[data-theme="dark"] {
   --background-color: #121416;
   --color: white;
   --border: 1px solid white;
+  --input-background-color: #353b41;
 }
 
 html[data-theme="light"] {

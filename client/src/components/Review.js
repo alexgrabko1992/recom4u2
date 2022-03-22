@@ -1,26 +1,33 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import Rating from "react-rating";
 import { MyVerticallyCenteredModal } from "./MyVerticallyCenteredModal.js";
+import { ModalEdit } from "./ModalEdit.js";
 import { Button } from "react-bootstrap";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import reviewService from "../controllers/reviewService";
+import typeService from "../controllers/typeService.js";
 
 export const Review = observer(({ content, icon, auth }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [type, setType] = useState("");
   const { currTheme } = useContext(Context);
 
-  const handleClick = async (event) => {
+  const handleClickDelete = async () => {
     const response = await reviewService.deleteReview(content.id);
     alert(response);
     window.location.reload();
+  };
+  const handleClick = async () => {
+    typeService.getTypeById(content.typeId).then((r) => setType(r));
+    setModalShow(true);
   };
 
   return (
     <Card style={{ width: "18rem" }} className="mt-3">
       <Button
-        onClick={() => setModalShow(true)}
+        onClick={handleClick}
         style={{ height: "100%" }}
         variant={currTheme.theme === "light" ? "outline-dark" : "outline-light"}
         className="d-flex flex-column"
@@ -39,18 +46,27 @@ export const Review = observer(({ content, icon, auth }) => {
         </Card.Body>
       </Button>
       {icon ? (
-        <Button type="submit" variant="danger" onClick={handleClick}>
-          {icon}
-        </Button>
+        <>
+          <Button type="submit" variant="danger" onClick={handleClickDelete}>
+            {icon}
+          </Button>
+          <ModalEdit
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            content={content}
+            type={type}
+          />
+        </>
       ) : (
-        <></>
+        <>
+          <MyVerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            content={content}
+            type={type}
+          />
+        </>
       )}
-
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        content={content}
-      />
     </Card>
   );
 });

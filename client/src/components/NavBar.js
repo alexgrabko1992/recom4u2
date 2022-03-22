@@ -6,9 +6,12 @@ import {
   Form,
   FormControl,
   Button,
+  NavDropdown,
+  Image,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import RusIcon from "../icons/premium-icon-russia-5582348.png";
 
 export const NavBar = ({ theme, setTheme }) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -36,19 +39,6 @@ export const NavBar = ({ theme, setTheme }) => {
             >
               Home
             </Nav.Link>
-            {/* <Nav.Link as={Link} to="/login">
-              Link
-            </Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown> */}
             <Nav.Link
               as={Link}
               to="/profile"
@@ -81,6 +71,24 @@ export const NavBar = ({ theme, setTheme }) => {
                 Login
               </Button>
             )}
+            <NavDropdown
+              title={
+                <Image
+                  style={{ width: "70%" }}
+                  src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
+                />
+              }
+              id="navbarScrollingDropdown"
+              style={{ width: "10%", minWidth: "5rem" }}
+              className="me-2"
+            >
+              <NavDropdown.Item href="#action3">
+                <Image
+                  style={{ width: "60%" }}
+                  src="http://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg"
+                />
+              </NavDropdown.Item>
+            </NavDropdown>
             <Form.Check
               type="switch"
               id="custom-switch"

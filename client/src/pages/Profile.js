@@ -1,27 +1,27 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Col, Row, Image, Tab, Tabs } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { CreateReview } from "../components/CreateReview";
+import { CreateReviewContainer } from "../components/CreateReview/CreateReviewContainer";
 import { Review } from "../components/Review";
 import reviewController from "../controllers/reviewService";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
 import { MdDeleteForever } from "react-icons/md";
+import typeService from "../controllers/typeService";
 
 export const Profile = observer(() => {
   const { user, isAuthenticated } = useAuth0();
-  const [reviews, setReviews] = useState();
-  const { currentUser } = useContext(Context);
+  const { currentUser, reviews, types } = useContext(Context);
 
-  useEffect(async () => {
-    // const info = await reviewController.getReviews(currentUser.userId);
-    // info.length !== 0 ? setReviews(info) : setReviews();
-    // console.log(info);
-    reviewController
-      .getReviews(currentUser.userId)
-      .then((response) =>
-        response !== [] ? setReviews(response) : setReviews()
-      );
+  useEffect(() => {
+    typeService.getTypes().then((response) => types.setTypes(response));
+    setTimeout(() => {
+      reviewController.getReviews(currentUser.userId).then((response) => {
+        response.length !== 0
+          ? reviews.setReviews(response)
+          : reviews.setReviews();
+      });
+    }, 1000);
   }, []);
 
   return (
@@ -50,8 +50,8 @@ export const Profile = observer(() => {
         >
           <Tab eventKey="reviews" title="Reviews">
             <div className="d-flex flex-wrap justify-content-around">
-              {reviews ? (
-                reviews.map((e) => (
+              {reviews.reviews ? (
+                reviews.reviews.map((e) => (
                   <Review
                     auth={isAuthenticated}
                     content={e}
@@ -74,7 +74,7 @@ export const Profile = observer(() => {
             </div>
           </Tab>
           <Tab eventKey="create" title="Create">
-            <CreateReview />
+            <CreateReviewContainer />
           </Tab>
           <Tab eventKey="users" title="Users" disabled>
             {/* <Sonnet /> */}

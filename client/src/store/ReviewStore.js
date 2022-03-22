@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-export default class ThemeStore {
+export default class ReviewStore {
   constructor() {
     this._reviews = [];
     makeAutoObservable(this);

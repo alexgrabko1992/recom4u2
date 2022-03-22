@@ -82,7 +82,31 @@ class reviewService {
       const jsonResponse = await response.json();
       return jsonResponse;
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    }
+  }
+  async updateReview(title, info, rating, typeId, reviewId) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/review/update-review`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            title,
+            info,
+            rating,
+            typeId,
+            reviewId,
+          }),
+        }
+      );
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } catch (error) {
+      console.log(error);
     }
   }
 }
