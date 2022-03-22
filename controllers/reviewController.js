@@ -37,6 +37,12 @@ class ReviewController {
     const response = await Review.destroy({ where: { id } });
     res.json("Review was deleted");
   }
+  async updateReview(req, res) {
+    const { title, info, rating, typeId, reviewId } = req.body;
+    const review = await Review.findOne({ where: { id: reviewId } });
+    const response = await review.update({ title, info, rating, typeId });
+    res.json(response);
+  }
 }
 
 module.exports = new ReviewController();
