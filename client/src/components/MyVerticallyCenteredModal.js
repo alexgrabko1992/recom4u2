@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Image } from "react-bootstrap";
 import Rating from "react-rating";
 import MDEditor from "@uiw/react-md-editor";
+import ratingService from "../controllers/ratingService";
 
 export const MyVerticallyCenteredModal = (props) => {
+  const handleClick = async (value) => {
+    ratingService
+      .setRate(value, props.content.userId, props.content.id)
+      .then((r) => console.log(r));
+  };
   return (
     <Modal
       {...props}
@@ -26,14 +32,25 @@ export const MyVerticallyCenteredModal = (props) => {
           source={props.content.info}
         />
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="justify-content-between">
         <Rating
           emptySymbol="fa fa-star-o fa-2x"
           fullSymbol="fa fa-star fa-2x"
           initialRating={props.content.rating}
           readonly={true}
         />
-        <Button onClick={props.onHide}>Close</Button>
+        <div>
+          <Rating
+            emptySymbol="fa fa-star-o fa-2x"
+            fullSymbol="fa fa-star fa-2x"
+            initialRating={props.rate}
+            start={0}
+            stop={10}
+            step={2}
+            onClick={handleClick}
+          />
+          <Button onClick={props.onHide}>Close</Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

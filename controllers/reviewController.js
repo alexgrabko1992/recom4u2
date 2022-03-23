@@ -1,4 +1,5 @@
 const { Review } = require("../models/models");
+const { UserRating } = require("../models/models");
 const imgbbUploader = require("imgbb-uploader");
 
 class ReviewController {
@@ -42,6 +43,23 @@ class ReviewController {
     const review = await Review.findOne({ where: { id: reviewId } });
     const response = await review.update({ title, info, rating, typeId });
     res.json(response);
+  }
+  async setUserRating(req, res) {
+    const { userRating, userId, reviewId } = req.body;
+    try {
+      const rating = await UserRating.create({ userRating, userId, reviewId });
+      res.json(rating);
+    } catch (error) {
+      console.log(error);
+      const rating = await UserRating.findOne({ where: { userId } });
+      const response = await rating.update({ userRating });
+      res.json(response);
+    }
+  }
+  async getUserRating(req, res) {
+    const { reviewId } = req.body
+    const ratings = await UserRating.findAll({ where: { reviewId } })
+    res.json(ratings)
   }
 }
 

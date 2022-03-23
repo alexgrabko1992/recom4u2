@@ -10,7 +10,7 @@ const User = sequelize.define("user", {
 const Review = sequelize.define("review", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: DataTypes.STRING, allowNull: false },
-  info: { type: DataTypes.STRING, allowNull: false },
+  info: { type: DataTypes.TEXT, allowNull: false },
   rating: { type: DataTypes.INTEGER, defaultValue: 0 },
   img: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: false },
 });
@@ -20,10 +20,19 @@ const Type = sequelize.define("type", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
+const UserRating = sequelize.define("userRating", {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  userRating: { type: DataTypes.INTEGER, defaultValue: 0 },
+  userId: { type: DataTypes.INTEGER, unique: true, allowNull: false },
+});
+
 User.hasMany(Review);
 Review.belongsTo(User);
 
 Type.hasMany(Review);
 Review.belongsTo(Type);
 
-module.exports = { User, Type, Review };
+Review.hasMany(UserRating);
+UserRating.belongsTo(Review);
+
+module.exports = { User, Type, Review, UserRating };

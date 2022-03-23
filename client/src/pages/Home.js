@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import reviewController from "../controllers/reviewService";
 import { Review } from "../components/Review";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Sort } from "../components/Sort";
 
 export const Home = () => {
   const [reviews, setReviews] = useState();
@@ -19,6 +20,7 @@ export const Home = () => {
   return (
     <>
       <h2>Home</h2>
+      <Sort />
       <div className="row justify-content-around">
         {reviews ? (
           reviews.map((e) => (

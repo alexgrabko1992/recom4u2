@@ -28,7 +28,7 @@ export const CreateReview = ({
         className="mb-2"
         onChange={({ target }) => setTypeId(target.value)}
       >
-        <option>Open this select menu</option>
+        <option>Choose type of review</option>
         {types.map((e) => {
           return (
             <option key={e.id} value={e.id}>
@@ -39,12 +39,6 @@ export const CreateReview = ({
       </Form.Select>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>Example textarea</Form.Label>
-        {/* <Form.Control
-          as="textarea"
-          rows={3}
-          required
-          onChange={({ target }) => setInfo(target.value)}
-        /> */}
         <MDEditor
           style={{ color: "inherit", backgroundColor: "inherit" }}
           value={info}

@@ -29,8 +29,25 @@ textarea,
   background-color: var(--input-background-color);
   color: var(--color);
 }
-.w-md-editor-text-input {
-  background-color: var(--input-background-color);
+
+.card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.card p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.wmde-markdown-var {
+  margin-top: 1%;
 }
 
 html[data-theme="dark"] {

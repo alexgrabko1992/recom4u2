@@ -6,14 +6,16 @@ import { publicRoutes, privateRoutes } from "../routes";
 export const AppRouters = () => {
   const { isAuthenticated } = useAuth0();
   return (
-    <Routes>
-      {isAuthenticated &&
-        privateRoutes.map(({ path, Component }) => (
+    <>
+      <Routes>
+        {isAuthenticated &&
+          privateRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={Component} exact />
+          ))}
+        {publicRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={Component} exact />
         ))}
-      {publicRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={Component} exact />
-      ))}
-    </Routes>
+      </Routes>
+    </>
   );
 };

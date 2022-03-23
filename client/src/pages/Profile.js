@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Col, Row, Image, Tab, Tabs } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { CreateReviewContainer } from "../components/CreateReview/CreateReviewContainer";

@@ -68,14 +68,11 @@ export const ModalEdit = (props) => {
             onChange={({ target }) => setTitle(target.value)}
             value={title}
           />
-          {/* <Form.Control
-            as="textarea"
-            rows={3}
-            required
-            onChange={({ target }) => setInfo(target.value)}
+          <MDEditor
+            style={{ color: "inherit", backgroundColor: "inherit" }}
             value={info}
-          /> */}
-          <MDEditor value={info} onChange={setInfo} />
+            onChange={setInfo}
+          />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Rating
