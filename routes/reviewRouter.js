@@ -10,5 +10,6 @@ router.post("/delete-review", reviewController.deleteReview);
 router.post("/update-review", reviewController.updateReview);
 router.post("/set-rate", reviewController.setUserRating);
 router.post("/get-rates", reviewController.getUserRating);
+router.post("/sort-reviews", reviewController.getReviewByType);
 
 module.exports = router;

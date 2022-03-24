@@ -57,9 +57,14 @@ class ReviewController {
     }
   }
   async getUserRating(req, res) {
-    const { reviewId } = req.body
-    const ratings = await UserRating.findAll({ where: { reviewId } })
-    res.json(ratings)
+    const { reviewId } = req.body;
+    const ratings = await UserRating.findAll({ where: { reviewId } });
+    res.json(ratings);
+  }
+  async getReviewByType(req, res) {
+    const { typeId } = req.body;
+    const reviews = await Review.findAll({ where: { typeId } });
+    res.json(reviews);
   }
 }
 
