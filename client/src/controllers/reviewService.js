@@ -109,6 +109,26 @@ class reviewService {
       console.log(error);
     }
   }
+  async getReviewByType(typeId) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/api/review/sort-reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify({
+            typeId,
+          }),
+        }
+      );
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 export default new reviewService();

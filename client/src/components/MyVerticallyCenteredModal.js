@@ -5,11 +5,11 @@ import MDEditor from "@uiw/react-md-editor";
 import ratingService from "../controllers/ratingService";
 
 export const MyVerticallyCenteredModal = (props) => {
-  const handleClick = async (value) => {
-    ratingService
-      .setRate(value, props.content.userId, props.content.id)
-      .then((r) => console.log(r));
-  };
+  // const handleClick = async (value) => {
+  //   ratingService
+  //     .setRate(value, props.content.userId, props.content.id)
+  //     .then((r) => console.log(r));
+  // };
   return (
     <Modal
       {...props}
@@ -40,7 +40,7 @@ export const MyVerticallyCenteredModal = (props) => {
           readonly={true}
         />
         <div>
-          <Rating
+          {/* <Rating
             emptySymbol="fa fa-star-o fa-2x"
             fullSymbol="fa fa-star fa-2x"
             initialRating={props.rate}
@@ -48,7 +48,7 @@ export const MyVerticallyCenteredModal = (props) => {
             stop={10}
             step={2}
             onClick={handleClick}
-          />
+          /> */}
           <Button onClick={props.onHide}>Close</Button>
         </div>
       </Modal.Footer>

@@ -70,7 +70,7 @@ export const NavBar = ({ theme, setTheme }) => {
                 login
               </Button>
             )}
-            <NavDropdown
+            {/* <NavDropdown
               title={
                 <Image
                   style={{ width: "70%" }}
@@ -87,7 +87,7 @@ export const NavBar = ({ theme, setTheme }) => {
                   src="http://purecatamphetamine.github.io/country-flag-icons/3x2/RU.svg"
                 />
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
             <Form.Check
               type="switch"
               id="custom-switch"

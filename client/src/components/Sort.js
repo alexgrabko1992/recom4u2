@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
-export const Sort = () => {
+export const Sort = ({ radioValue, setRadioValue }) => {
   const [checked, setChecked] = useState(false);
-  const [radioValue, setRadioValue] = useState("1");
 
   const radios = [
-    { name: "Active", value: "1" },
-    { name: "Radio", value: "2" },
-    { name: "Radio", value: "3" },
+    { name: "All", value: 0 },
+    { name: "Book", value: 1 },
+    { name: "Game", value: 2 },
+    { name: "Film", value: 3 },
   ];
 
   return (

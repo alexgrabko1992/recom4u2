@@ -83,7 +83,7 @@ export const ModalEdit = (props) => {
           />
           <div style={{ width: "30%" }}>
             <Button variant="success" type="submit" className="me-2">
-              Submit form
+              Update
             </Button>
             <Button onClick={props.onHide}>Close</Button>
           </div>

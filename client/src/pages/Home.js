@@ -6,21 +6,30 @@ import { Sort } from "../components/Sort";
 
 export const Home = () => {
   const [reviews, setReviews] = useState();
+  const [radioValue, setRadioValue] = useState(0);
   const { isAuthenticated } = useAuth0();
 
-  const getAllReviews = async () => {
-    const response = await reviewController.getAllReviews();
-    response.length !== 0 ? setReviews(response) : setReviews();
+  const getReviewByType = async (typeId) => {
+    if (typeId === 0) {
+      reviewController.getAllReviews().then((response) => {
+        response.length !== 0 ? setReviews(response) : setReviews();
+      });
+    } else {
+      const response = await reviewController.getReviewByType(typeId);
+      response.length !== 0 ? setReviews(response) : setReviews();
+    }
+    
   };
 
   useEffect(() => {
-    getAllReviews();
-  }, []);
+    console.log(radioValue)
+    getReviewByType(radioValue)
+  }, [radioValue]);
 
   return (
     <>
       <h2>Home</h2>
-      <Sort />
+      <Sort radioValue={radioValue} setRadioValue={setRadioValue} />
       <div className="row justify-content-around">
         {reviews ? (
           reviews.map((e) => (

@@ -1,8 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Card } from "react-bootstrap";
 import Rating from "react-rating";
 import { MyVerticallyCenteredModal } from "./MyVerticallyCenteredModal.js";
-import { Link } from "react-router-dom";
 import { ModalEdit } from "./ModalEdit.js";
 import { Button } from "react-bootstrap";
 import { Context } from "../index";
@@ -10,8 +9,6 @@ import { observer } from "mobx-react-lite";
 import reviewService from "../controllers/reviewService";
 import typeService from "../controllers/typeService.js";
 import MDEditor from "@uiw/react-md-editor";
-import ratingService from "../controllers/ratingService";
-import { ReviewRouters } from "./Routers.js/ReviewRouters.js";
 
 export const Review = observer(({ content, icon, auth }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -62,7 +59,7 @@ export const Review = observer(({ content, icon, auth }) => {
         >
           <div>
             <Card.Title>{content.title}</Card.Title>
-            <Rating
+            {/* <Rating
               emptySymbol="fa fa-star-o fa-2x"
               fullSymbol="fa fa-star fa-2x"
               start={0}
@@ -70,7 +67,7 @@ export const Review = observer(({ content, icon, auth }) => {
               step={2}
               initialRating={userRating}
               readonly={true}
-            />
+            /> */}
           </div>
           <MDEditor.Markdown
             style={{ color: "inherit", backgroundColor: "inherit" }}
@@ -95,7 +92,6 @@ export const Review = observer(({ content, icon, auth }) => {
             onHide={() => setModalShow(false)}
             content={content}
             type={type}
-            userRating={userRating}
           />
         </>
       ) : (
@@ -107,14 +103,6 @@ export const Review = observer(({ content, icon, auth }) => {
             type={type}
             rate={userRating}
           />
-          {/* <ReviewRouters
-            path={content.id}
-            modalShow={modalShow}
-            setModalShow={setModalShow}
-            content={content}
-            type={type}
-            userRating={userRating}
-          /> */}
         </>
       )}
     </Card>
